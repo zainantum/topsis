@@ -48,18 +48,16 @@ class topsis{
             $div[$keyCtgr] = $this->division(array_column($this->dataExample,$keyCtgr));
             $dataAlt = array_column($this->dataExample, $keyCtgr);
             $weighted = [];
-            $temp = [];
             foreach($dataAlt as $keyExp => $dataExp){
-                $calc = ($dataExp/$div[$keyCtgr])*$this->weight[$keyCtgr];
-                $temp[] = $weighted[] = $calc;
+                $weighted[] = ($dataExp/$div[$keyCtgr])*$this->weight[$keyCtgr];
             }
             foreach($weighted as $key => $value){
                 if(array_key_exists($key, $siplus) == false || array_key_exists($key, $siminus) == false){
                     $siplus[$key] = [];
                     $siminus[$key] = [];
                 }
-                array_push($siplus[$key],pow((max($temp) - $value), 2));
-                array_push($siminus[$key], pow(($value - min($temp)),2));
+                array_push($siplus[$key],pow((max($weighted) - $value), 2));
+                array_push($siminus[$key], pow(($value - min($weighted)),2));
             }
 
         }
